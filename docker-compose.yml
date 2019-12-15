@@ -1,0 +1,27 @@
+version: "3"
+
+services: 
+  web:
+    image: nginx
+    container_name: docker_nginx
+    ports: 
+      - 80:80
+    volumes: 
+      - ./public_html:/public_html
+      - ./conf.d:/etc/nginx/conf.d
+
+  php:
+    image: php:fpm
+    container_name: docker_php
+    volumes: 
+      - ./public_html:/public_html
+    expose: 
+      - 9000
+
+  db:
+    image: mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: admin
+    ports: 
+      - 3306:3306
+    
